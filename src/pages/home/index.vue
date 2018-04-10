@@ -1,34 +1,53 @@
 <template>
-   <div>
-       <index-header></index-header>
-       <index-swiper :list='swiper'></index-swiper>
-   </div>
+	
+	   <div class="main">
+	       <index-header></index-header>
+	       <index-swiper :list='swiper'></index-swiper>
+	       <index-icons :list='icons'></index-icons>
+	       <index-scroller :list = "sights"></index-scroller>						
+	   </div>
+	
 </template>
 
 <script>
 	import IndexHeader from './header'
 	import IndexSwiper from './swiper'
+	import IndexIcons from './icons'
+	import IndexScroller from './scroller'
+	import { mapState,mapMutations } from 'vuex'
 	import axios from 'axios'
+	
 export default {
   name: 'index',
   components: {
   	IndexHeader,
-  	IndexSwiper
+  	IndexSwiper,
+  	IndexIcons,
+  	IndexScroller
   },
   data() {
   	return {
-  		swiper:[]
+  		swiper:[],
+  		icons:[],
+		sights:[]
   	}
   },
+  computed: {
+  	...mapState(['city'])
+  },
   methods: {
+  	...mapMutations(['changeCity']),
   	 getIndexData() {
-  	 	axios.get('/api/index.json')
+  	 	axios.get('/api/index.json?city=' + this.city)
   	 	  .then( this.handleGetDataSucc.bind(this) )
   	 	  .catch( this.handleGetDataErr.bind(this) )
   	 },
   	 handleGetDataSucc(res) {
         const data = res.data.data
+        this.changeCity( data.city )
         this.swiper = data.swiper
+        this.icons = data.icons
+        this.sights = data.sights
   	 },
   	 handleGetDataErr(res) {
   	 	
@@ -41,6 +60,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='stylus' scoped>
 </style>

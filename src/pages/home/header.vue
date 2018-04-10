@@ -5,17 +5,22 @@
             <span class="search-content iconfont">&#xe60c;</span>
                                 请输入搜素内容
         </div>
-        <div class="city">
-                                  北京
-            <span class='city-down iconfont'>&#xe629;</span>                      
-        </div>
+        <router-link :to="{ name:'city' }">       	
+	        <div class="city">
+	            {{city}}
+	            <span class='city-down iconfont'>&#xe629;</span>                      
+	        </div>
+        </router-link>
     </div>
 </template>
 
 <script>
-	
+	import { mapState } from 'vuex'
 export default {
-  name: 'index-header'
+  name: 'index-header',
+  computed: {
+  	...mapState(['city'])
+  }
 }
 </script>
 
@@ -50,6 +55,7 @@ export default {
           float:right
           padding:0 10px 
           line-height:44px
+          color:#fff
           .city-down
              font-size:16px      
 </style>

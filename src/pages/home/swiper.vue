@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="swiper">
        <swiper :options="swiperOption">
     <!-- slides -->
 		    <swiper-slide v-for='item in list' :key="item.id" class="swiper-slide-content">
@@ -21,7 +21,7 @@ export default {
   	return {
   		swiperOption:{
 			loop:true,
-			autoplay: 1000,
+			autoplay: 2000,
 			loop: true,
 			observer:true,
 			observeParents:true,
@@ -39,7 +39,7 @@ export default {
 <style lang='stylus' scoped>
       .swiper-pagination >>> .swiper-pagination-bullet-active
          background:#fff
-      .swiper-slide-content
+      .swiper, .swiper-slide-content
           overflow:hidden
           height:0
           padding-bottom:31.25%
